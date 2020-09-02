@@ -1,0 +1,33 @@
+name: Create issues from code scanning results
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "30 1 * * *"
+
+jobs:
+  issue-creation:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+    # Call Code Scanning API to get all Code Scanning Results since last pull
+    - name: Get Code Scanning Results
+      uses: JamesIves/fetch-api-data-action@releases/v1
+      with:
+        TOKEN_ENDPOINT: https://api.github.com/repos/get-secure/node-plugin/code-scanning/alerts
+        # The configuration contains secrets held in the Settings/Secrets menu of the repository.
+        TOKEN_CONFIGURATION: '{ "method": "GET", "client_secret": "${{ secrets.ORG_ACCESS_TOKEN }}"} }'
+        # Once the token endpoint has fetched then this endpoint is requested.
+        # ENDPOINT: https://example.com/data
+        # The bearer token here is returned from the TOKEN_ENDPOINT call. The returned data looks like so: {data: {access_token: '123'}}, meaning it can be accessed using the triple bracket syntax.
+        # CONFIGURATION: '{ "method": "GET", "headers": {"Authorization": "Bearer {{{ data.access_token }}}"} }'
+          
+          
+    - run: echo $FETCH_API_DATA
+    
+    # Create issue
+    
+    # To do
+    # Make token_endpoint path dynamic
