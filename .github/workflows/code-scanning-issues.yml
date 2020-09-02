@@ -12,6 +12,13 @@ jobs:
 
     steps:
     
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        # We must fetch at least the immediate parents so that if this is
+        # a pull request then we can checkout the head.
+        fetch-depth: 2
+    
     # Call Code Scanning API to get all Code Scanning Results since last pull
     - name: Get Code Scanning Results
       uses: JamesIves/fetch-api-data-action@releases/v1
