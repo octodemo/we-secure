@@ -37,12 +37,11 @@ jobs:
       id: get_filtered_alerts
       with:
         query: |
-          query repository($owner:${{ github.repository }},$name:${{ github.repository }}) {
+          query repository($owner:String!,$repo:String!) {
               alerts(first:1) {
                 nodes {
                   name
                   createdAt
-                }
               }
             }
           }
