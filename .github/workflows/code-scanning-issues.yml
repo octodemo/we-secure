@@ -38,7 +38,7 @@ jobs:
       with:
         query: |
           query repository($owner:String!,$repo:String!) {
-              vulnerabilityAlerts(first:1) {
+              vulnerabilityAlert(first:1) {
               nodes {
                 createdAt
               }
