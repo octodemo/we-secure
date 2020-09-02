@@ -76,11 +76,11 @@ jobs:
     #    repository: ${{ github.repository }}
     #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-    - name: Print outputs
-      run: |
-        echo ${{ steps.get_filtered_alerts.outputs.data }}
-        echo ${{ steps.create_issues.outputs.id }}
-        echo ${{ steps.create_issues.outputs.number }}
+    # - name: Print outputs
+    #  run: |
+    #    echo ${{ steps.get_filtered_alerts.outputs.data }}
+    #    echo ${{ steps.create_issues.outputs.id }}
+    #    echo ${{ steps.create_issues.outputs.number }}
         
 
     
