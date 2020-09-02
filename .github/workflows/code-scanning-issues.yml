@@ -37,8 +37,7 @@ jobs:
       id: get_filtered_alerts
       with:
         query: |
-          query release($owner:String!,$repo:String!) {
-            repository(owner:$owner,name:$repo) {
+          query repository($owner:${{ github.repository }},$name:${{ github.repository }}) {
               alerts(first:1) {
                 nodes {
                   name
