@@ -25,8 +25,7 @@ jobs:
       with:
         route: GET /repos/:repository/code-scanning/alerts
         repository: ${{ github.repository }}
-      #env:
-      #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Create issue from code scanning alerts
       uses: maxkomarychev/oction-create-issue@v0.7.1
