@@ -23,7 +23,12 @@ jobs:
         # ENDPOINT: https://example.com/data
         # The bearer token here is returned from the TOKEN_ENDPOINT call. The returned data looks like so: {data: {access_token: '123'}}, meaning it can be accessed using the triple bracket syntax.
         # CONFIGURATION: '{ "method": "GET", "headers": {"Authorization": "Bearer {{{ data.access_token }}}"} }'
-          
+    
+    - name: Set selected color
+      run: echo '::set-env name=API_DATA::$FETCH_API_DATA'
+    
+    - name: Get color
+      run: echo 'The selected color is' $API_DATA
           
     - run: echo $FETCH_API_DATA
     
