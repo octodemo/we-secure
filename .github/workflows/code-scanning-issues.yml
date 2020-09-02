@@ -17,23 +17,8 @@ jobs:
 
     steps:
     
-    #- name: Checkout repository
-    #  uses: actions/checkout@v2
-    #  with:
-    #    # We must fetch at least the immediate parents so that if this is
-    #    # a pull request then we can checkout the head.
-    #    fetch-depth: 2
-    
-    # Get all code scanning alerts
-    - name: Get code scanning alerts
-      uses: octokit/request-action@v2.x
-      id: get_repo_alerts
-      with:
-        route: GET /repos/:repository/code-scanning/alerts
-        repository: ${{ github.repository }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
-    - uses: octokit/graphql-action@v2.x
+    - name: Get Repo Security Vulnerability Alerts
+      uses: octokit/graphql-action@v2.x
       id: get_filtered_alerts
       with:
         query: |
@@ -62,13 +47,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
     - run: "echo 'latest release: ${{ steps.get_filtered_alerts.outputs.data }}'"
-    
-    
-    
-    # Filter all that were create in the past 24 hours
-    #- name: Filter code scanning alerts created in past 24 hours
-    #  id: recent_alerts
-      
+  
     
     
     # Create issues for each alert created in the past 24 hours
@@ -78,12 +57,30 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         title: Test
-        body: ${{ steps.get_repo_alerts.outputs.data }}
+        body: ${{ steps.get_filtered_alerts.outputs.data }}
+  
   
     - name: Print outputs
       run: |
+        echo ${{ steps.get_filtered_alerts.outputs.data }}
         echo ${{ steps.create_issues.outputs.id }}
         echo ${{ steps.create_issues.outputs.number }}
+        
+    #- name: Checkout repository
+    #  uses: actions/checkout@v2
+    #  with:
+    #    # We must fetch at least the immediate parents so that if this is
+    #    # a pull request then we can checkout the head.
+    #    fetch-depth: 2
+    
+    # Get all code scanning alerts
+    #- name: Get code scanning alerts
+    #  uses: octokit/request-action@v2.x
+    #  id: get_repo_alerts
+    #  with:
+    #    route: GET /repos/:repository/code-scanning/alerts
+    #    repository: ${{ github.repository }}
+    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
     
    
