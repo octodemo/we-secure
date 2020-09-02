@@ -38,7 +38,10 @@ jobs:
       with:
         query: |
           query repository($owner:String!,$repo:String!) {
-              securityVulnerabilities(first:1) {
+              vulnerabilityAlerts(first:1) {
+              nodes {
+                createdAt
+              }
             }
           }
         owner: ${{ github.event.repository.owner.name }}
