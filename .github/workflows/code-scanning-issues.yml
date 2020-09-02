@@ -40,7 +40,6 @@ jobs:
           query repository($owner:String!,$repo:String!) {
               securityVulnerabilities(first:1) {
                 nodes {
-                  name
                   createdAt
               }
             }
