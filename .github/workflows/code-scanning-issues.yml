@@ -18,8 +18,6 @@ jobs:
         # We must fetch at least the immediate parents so that if this is
         # a pull request then we can checkout the head.
         fetch-depth: 2
-        
-        
     
     - name: Get code scanning alerts
       uses: octokit/request-action@v2.x
@@ -30,6 +28,20 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - run: "echo latest release: ${{ steps.get_repo_alerts.outputs.data }}"
+    
+    - name: Create issue from code scanning alerts
+      uses: maxkomarychev/oction-create-issue@v0.7.1
+      id: create_issues
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        title: Test
+        body: ${{ steps.get_repo_alerts.outputs.data }}
+  
+    - name: Print outputs
+      run: |
+        echo ${{ steps.create_issues.outputs.id }}
+        echo ${{ steps.create_issues.outputs.number }}
+    
     
     # Call Code Scanning API to get all Code Scanning Results since last pull
     #- name: Get Code Scanning Results
