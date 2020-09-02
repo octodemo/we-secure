@@ -18,26 +18,31 @@ jobs:
         # We must fetch at least the immediate parents so that if this is
         # a pull request then we can checkout the head.
         fetch-depth: 2
+        
+        
+    
+    - name: Get code scanning alerts
+    - uses: octokit/request-action@v2.x
+      id: get_repo_alerts
+      with:
+        route: GET /repos/get-secure/:repository/code-scanning/alerts
+        repository: ${{ github.repository }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - run: "echo latest release: ${{ steps.get_repo_alerts.outputs.data }}"
     
     # Call Code Scanning API to get all Code Scanning Results since last pull
-    - name: Get Code Scanning Results
-      uses: JamesIves/fetch-api-data-action@releases/v1
-      with:
-        ENDPOINT: https://api.github.com/repos/get-secure/node-plugin/code-scanning/alerts
-        # The configuration contains secrets held in the Settings/Secrets menu of the repository.
-        #CONFIGURATION: '{ "method": "GET", "headers": {"Authorization": "Bearer abcd"} }'
-        # Once the token endpoint has fetched then this endpoint is requested.
-        # ENDPOINT: https://example.com/data
-        # The bearer token here is returned from the TOKEN_ENDPOINT call. The returned data looks like so: {data: {access_token: '123'}}, meaning it can be accessed using the triple bracket syntax.
-        # CONFIGURATION: '{ "method": "GET", "headers": {"Authorization": "Bearer {{{ data.access_token }}}"} }'
-    
-    - name: Set selected color
-      run: echo '::set-env name=API_DATA::$FETCH_API_DATA'
-    
-    - name: Get color
-      run: echo 'The selected color is' $API_DATA
-          
-    - run: echo $FETCH_API_DATA
+    #- name: Get Code Scanning Results
+    #  uses: JamesIves/fetch-api-data-action@releases/v1
+    #  with:
+    #    ENDPOINT: https://api.github.com/repos/get-secure/node-plugin/code-scanning/alerts
+    #    # The configuration contains secrets held in the Settings/Secrets menu of the repository.
+    #    CONFIGURATION: '{ "method": "GET", "headers": {"Authorization": "Bearer abcd"} }'
+    #    # Once the token endpoint has fetched then this endpoint is requested.
+    #   # ENDPOINT: https://example.com/data
+    #    # The bearer token here is returned from the TOKEN_ENDPOINT call. The returned data looks like so: {data: {access_token: '123'}}, meaning it can be accessed using the triple bracket syntax.
+    #    # CONFIGURATION: '{ "method": "GET", "headers": {"Authorization": "Bearer {{{ data.access_token }}}"} }'
+  
     
     # Create issue
     
