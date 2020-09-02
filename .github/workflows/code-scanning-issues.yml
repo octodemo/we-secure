@@ -50,9 +50,11 @@ jobs:
   
     - name: Loop and create issues
       run: |
-        for k in $( jq '.repository.vulnerabilityAlerts.nodes | keys | .[]'  <<< ${{ steps.get_filtered_alerts.outputs.data }} ); do
-          echo "$i"
-        done
+        jq -r '.children.values[] | [ ]' ${{ steps.get_filtered_alerts.outputs.data }}
+    
+    #for k in $( jq '.repository.vulnerabilityAlerts.nodes | keys | .[]'  <<< ${{ steps.get_filtered_alerts.outputs.data }} ); do
+    #  echo "$i"
+    #done
         
     
     # Create issues for each alert created in the past 24 hours
