@@ -27,7 +27,6 @@ jobs:
         repository: ${{ github.repository }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: "echo latest release: ${{ steps.get_repo_alerts.outputs.data }}"
     
     - name: Create issue from code scanning alerts
       uses: maxkomarychev/oction-create-issue@v0.7.1
