@@ -49,7 +49,7 @@ jobs:
         owner: ${{ github.repository_owner }}
         repo: ${{ github.event.repository.name }}
       env:
-        TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
     - run: "echo 'latest release: ${{ steps.get_filtered_alerts.outputs.data }}'"
     
     
