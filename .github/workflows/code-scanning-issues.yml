@@ -41,7 +41,13 @@ jobs:
               repository(owner:$owner,name:$repo) {
                 vulnerabilityAlerts(first:1) {
                   nodes {
+                    id
                     createdAt
+                    securityAdvisory
+                    securityVulnerability
+                    vulnerableManifestFilename
+                    vulnerableManifestPath
+                    vulnerableRequirements
                   }
                 }
               }
