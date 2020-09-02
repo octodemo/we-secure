@@ -50,7 +50,7 @@ jobs:
   
     - name: Loop and create issues
       run: |
-        for i in ${{ steps.get_filtered_alerts.outputs.data.repository.vulnerabilityAlerts.nodes }} 
+        for i in "${{ steps.get_filtered_alerts.outputs.data }}" 
         do
           echo "$i"
         done
