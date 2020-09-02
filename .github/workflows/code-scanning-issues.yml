@@ -1,5 +1,10 @@
 name: Create issues from code scanning results
 
+####
+# This workflow gets the latest code scanning results from the current
+# repository over the last 24 hours, and transfers results into issues
+####
+
 on:
   workflow_dispatch:
   schedule:
@@ -19,6 +24,7 @@ jobs:
     #    # a pull request then we can checkout the head.
     #    fetch-depth: 2
     
+    # Get all code scanning alerts
     - name: Get code scanning alerts
       uses: octokit/request-action@v2.x
       id: get_repo_alerts
@@ -27,6 +33,35 @@ jobs:
         repository: ${{ github.repository }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
+    - uses: octokit/graphql-action@v2.x
+      id: get_filtered_alerts
+      with:
+        query: |
+          query release($owner:String!,$repo:String!) {
+            repository(owner:$owner,name:$repo) {
+              alerts(first:1) {
+                nodes {
+                  name
+                  createdAt
+                }
+              }
+            }
+          }
+        owner: ${{ github.event.repository.owner.name }}
+        repo: ${{ github.event.repository.name }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - run: "echo 'latest release: ${{ steps.get_filtered_alerts.outputs.data }}'"
+    
+    
+    
+    # Filter all that were create in the past 24 hours
+    #- name: Filter code scanning alerts created in past 24 hours
+    #  id: recent_alerts
+      
+    
+    
+    # Create issues for each alert created in the past 24 hours
     - name: Create issue from code scanning alerts
       uses: maxkomarychev/oction-create-issue@v0.7.1
       id: create_issues
