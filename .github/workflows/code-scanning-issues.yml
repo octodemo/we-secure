@@ -48,24 +48,31 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
     - run: "echo 'latest release: ${{ steps.get_filtered_alerts.outputs.data }}'"
   
-    
+    - name: Loop and create issues
+      run: |
+        for i in "${steps.get_filtered_alerts.outputs.data[@]}" 
+        do
+          echo "$i"
+        done
+        
     
     # Create issues for each alert created in the past 24 hours
-    - name: Create issue from code scanning alerts
-      uses: maxkomarychev/oction-create-issue@v0.7.1
-      id: create_issues
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        title: Test
-        body: ${{ steps.get_filtered_alerts.outputs.data }}
+    #- name: Create issue from code scanning alerts
+    #  uses: maxkomarychev/oction-create-issue@v0.7.1
+    #  id: create_issues
+    #  with:
+    #    token: ${{ secrets.GITHUB_TOKEN }}
+    #    title: ${{ steps.get_filtered_alerts.outputs.data.repository.vulnerabilityAlerts.bi }}
+    #    body: ${{ steps.get_filtered_alerts.outputs.data }}
   
   
-        #- name: Checkout repository
+    #- name: Checkout repository
     #  uses: actions/checkout@v2
     #  with:
     #    # We must fetch at least the immediate parents so that if this is
     #    # a pull request then we can checkout the head.
     #    fetch-depth: 2
+    
     
     # Get all code scanning alerts
     #- name: Get code scanning alerts
@@ -75,6 +82,7 @@ jobs:
     #    route: GET /repos/:repository/code-scanning/alerts
     #    repository: ${{ github.repository }}
     #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
       
     # - name: Print outputs
     #  run: |
