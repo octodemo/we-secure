@@ -25,7 +25,7 @@ jobs:
       with:
         ENDPOINT: https://api.github.com/repos/get-secure/node-plugin/code-scanning/alerts
         # The configuration contains secrets held in the Settings/Secrets menu of the repository.
-        CONFIGURATION: '{ "method": "GET", "headers": {"Authorization": "Bearer {${{ secrets.ORG_ACCESS_TOKEN }}}"} }'
+        CONFIGURATION: '{ "method": "GET", "headers": {"Authorization": "Bearer abcd"} }'
         # Once the token endpoint has fetched then this endpoint is requested.
         # ENDPOINT: https://example.com/data
         # The bearer token here is returned from the TOKEN_ENDPOINT call. The returned data looks like so: {data: {access_token: '123'}}, meaning it can be accessed using the triple bracket syntax.
