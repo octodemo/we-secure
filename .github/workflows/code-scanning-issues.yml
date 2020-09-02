@@ -43,8 +43,13 @@ jobs:
                   nodes {
                     id
                     createdAt
-                    securityAdvisory
-                    securityVulnerability
+                    securityAdvisory {
+                      description
+                      ghsaId
+                    }
+                    securityVulnerability{
+                      vulnerableVersionRange
+                    }
                     vulnerableManifestFilename
                     vulnerableManifestPath
                     vulnerableRequirements
