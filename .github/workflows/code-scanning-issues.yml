@@ -22,7 +22,7 @@ jobs:
         
     
     - name: Get code scanning alerts
-    - uses: octokit/request-action@v2.x
+      uses: octokit/request-action@v2.x
       id: get_repo_alerts
       with:
         route: GET /repos/get-secure/:repository/code-scanning/alerts
