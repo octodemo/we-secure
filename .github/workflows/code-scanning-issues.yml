@@ -60,13 +60,7 @@ jobs:
         body: ${{ steps.get_filtered_alerts.outputs.data }}
   
   
-    - name: Print outputs
-      run: |
-        echo ${{ steps.get_filtered_alerts.outputs.data }}
-        echo ${{ steps.create_issues.outputs.id }}
-        echo ${{ steps.create_issues.outputs.number }}
-        
-    #- name: Checkout repository
+        #- name: Checkout repository
     #  uses: actions/checkout@v2
     #  with:
     #    # We must fetch at least the immediate parents so that if this is
@@ -81,6 +75,14 @@ jobs:
     #    route: GET /repos/:repository/code-scanning/alerts
     #    repository: ${{ github.repository }}
     #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+    - name: Print outputs
+      run: |
+        echo ${{ steps.get_filtered_alerts.outputs.data }}
+        echo ${{ steps.create_issues.outputs.id }}
+        echo ${{ steps.create_issues.outputs.number }}
+        
+
     
     
    
