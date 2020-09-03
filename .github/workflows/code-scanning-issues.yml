@@ -53,7 +53,7 @@ jobs:
         JSON_RETURNED: ${{ steps.get_filtered_alerts.outputs.data }}
       run: |
         echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts'
-        NODES=`echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts'`
+        NODES=`echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts.nodes'`
         echo ::set-env name=alert_nodes::${NODES}
         echo $NODES
         
@@ -61,8 +61,8 @@ jobs:
     - name: Create issues
       run: |
         JSON_ARRAY=`echo $alert_nodes| jq '.nodes'`
-        echo $JSON_ARRAY | jq -r '.nodes' | while read nodes ; do
-          echo $nodes
+        echo $JSON_ARRAY | jq -r '.[].id' | while read id ; do
+          echo $id
         done
         
     
