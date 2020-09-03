@@ -52,7 +52,7 @@ jobs:
       env:
         JSON_RETURNED: ${{ steps.get_filtered_alerts.outputs.data }}
       run: |
-           MULTILINE=$( $JSON_RETURNED | jq '.repository.vulnerabilityAlerts' ) 
+           MULTILINE=`$JSON_RETURNED | jq '.repository.vulnerabilityAlerts'` 
            echo "${MULTILINE}"
         
     #- name: Get color
