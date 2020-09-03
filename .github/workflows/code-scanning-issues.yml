@@ -51,7 +51,7 @@ jobs:
 
     - name: Print outputs
       env:
-        JSON_RETURNED: ${{ steps.get_filtered_alerts.outputs.data }}
+        JSON_RETURNED: ${{ toJson(steps.get_filtered_alerts.outputs.data) }}
       run: |
         echo "$JSON_RETURNED"
         echo ${{ steps.create_issues.outputs.id }}
