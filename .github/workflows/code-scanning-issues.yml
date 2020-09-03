@@ -48,7 +48,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
 
 
-    - name: Set outputs
+    - name: Print outputs
       env:
         JSON_RETURNED: ${{ steps.get_filtered_alerts.outputs.data }}
       run: |
