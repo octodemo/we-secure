@@ -46,7 +46,7 @@ jobs:
         repo: ${{ github.event.repository.name }}
       env:
         GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
-    - run: "echo 'latest release: ${{ steps.get_filtered_alerts.outputs.data }}'"
+    - run: "echo 'latest release: ${{ steps.get_filtered_alerts.outputs.data }}' | jq '.repository' "
   
     # - name: Loop and create issues
     #  run: |
