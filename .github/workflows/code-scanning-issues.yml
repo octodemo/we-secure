@@ -62,9 +62,9 @@ jobs:
       run: |
         JSON_ARRAY=`echo $alert_nodes| jq '.nodes'`
         echo $JSON_ARRAY
-   #     for row in $alert_nodes; do
-   #       echo $row
-   #     done
+        jq -c '.[]' $JSON_ARRAY | while read i; do
+          echo $i
+        done
         
     
     # Create issues for each alert created in the past 24 hours
