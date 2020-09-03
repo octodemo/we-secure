@@ -47,8 +47,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
     - run: |
-        var=(echo '${{ steps.get_filtered_alerts.outputs.data }}' | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["repository"]')
-        echo "$var"
+        type(${{ steps.get_filtered_alerts.outputs.data }})
+    
+    #var=(echo '${{ steps.get_filtered_alerts.outputs.data }}' | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["repository"]')
+    #echo "$var"
     
     # echo ::set-output name=json_var::${{ steps.get_filtered_alerts.outputs.data }}
     # echo $json_var | jq '.repository.vulnerabilityAlerts'
