@@ -53,8 +53,8 @@ jobs:
         JSON_RETURNED: ${{ steps.get_filtered_alerts.outputs.data }}
       run: |
         echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts'
-        a=`echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts'`
-        echo '::set-env name=alert_nodes::$a'
+        NODES=`echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts'`
+        echo "::set-env name=alert_nodes::$NODES"
     
     - name: Get color
       run: echo 'The selected color is' $alert_nodes
