@@ -24,7 +24,7 @@ jobs:
         query: |
           query release($owner:String!,$repo:String!) {
               repository(owner:$owner,name:$repo) {
-                vulnerabilityAlerts(first:1) {
+                vulnerabilityAlerts(first:100) {
                   nodes {
                     id
                     createdAt
