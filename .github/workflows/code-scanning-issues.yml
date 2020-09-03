@@ -53,7 +53,7 @@ jobs:
       with:
         query: |
           query {
-            organization(login: "octodemo") {
+            organization(login: "get-secure") {
               packages(first:1, packageType:DOCKER) {
                  totalCount
               }
