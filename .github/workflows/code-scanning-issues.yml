@@ -46,6 +46,21 @@ jobs:
         repo: ${{ github.event.repository.name }}
       env:
         GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
+        
+    - name: Test graphql
+      uses: octokit/graphql-action@v2.x
+      id: get_filtered_alerts2
+      with:
+        query: |
+          query {
+            organization(login: "octodemo") {
+              packages(first:1, packageType:DOCKER) {
+                 totalCount
+              }
+            }
+          }
+      env:
+        GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
 
 
     - name: Save code scanning alerts in an environment variable
