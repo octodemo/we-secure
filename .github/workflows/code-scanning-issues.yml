@@ -52,7 +52,7 @@ jobs:
       env:
         JSON_RETURNED: ${{ toJson(steps.get_filtered_alerts.outputs.data) }}
       run: |
-        echo "$JSON_RETURNED" | jq '.repository.vulnerabilityAlerts'
+        echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts'
     
     #var=(echo '${{ steps.get_filtered_alerts.outputs.data }}' | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["repository"]')
     #echo "$var"
