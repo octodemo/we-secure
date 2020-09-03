@@ -61,9 +61,8 @@ jobs:
     - name: Create issues
       run: |
         JSON_ARRAY=`echo $alert_nodes| jq '.nodes'`
-        echo $JSON_ARRAY
-        jq -c '.[]' $JSON_ARRAY | while read i; do
-          echo $i
+        echo $JSON_ARRAY | jq -r '.nodes' | while read nodes ; do
+          echo $nodes
         done
         
     
