@@ -54,7 +54,7 @@ jobs:
       run: |
         echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts'
         NODES=`echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts'`
-        echo "::set-env name=alert_nodes::$NODES"
+        echo "::set-env name=alert_nodes::${NODES}"
         echo $NODES
     
     - name: Get color
