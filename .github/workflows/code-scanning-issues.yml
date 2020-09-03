@@ -60,12 +60,8 @@ jobs:
     # Loop through every node. For each node create an issue if it doesn't already exist
     - name: Create issues
       run: |
-        for row in $(echo "${alert_notes}" | jq -r '.[] | @base64'); do
-          _jq() {
-          echo ${row} | base64 --decode | jq -r ${1}
-          }
-
-          echo $(_jq '.id')
+        for row in $alert_nodes; do
+          echo $row
         done
     
     # Create issues for each alert created in the past 24 hours
