@@ -60,12 +60,11 @@ jobs:
     # Loop through every node. For each node create an issue if it doesn't already exist
     - name: Create issues
       run: |
-        JSON_ARRAY=`echo $alert_nodes| jq '.nodes'`
-        echo $JSON_ARRAY | jq -r '.[].id' | while read id ; do
+        echo $alert_nodes | jq -r '.[].id' | while read id ; do
           echo $id
         done
         
-    
+    # JSON_ARRAY=`echo $alert_nodes| jq '.nodes'`
     # Create issues for each alert created in the past 24 hours
     #- name: Create issue from code scanning alerts
     #  uses: maxkomarychev/oction-create-issue@v0.7.1
