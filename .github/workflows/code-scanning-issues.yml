@@ -58,8 +58,8 @@ jobs:
         echo $NODES
         
     # Loop through every node. For each node create an issue if it doesn't already exist
-    - name: Create issues
-      run: |
+    #- name: Create issues
+    #  run: |
         
     
     # Create issues for each alert created in the past 24 hours
