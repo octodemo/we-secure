@@ -53,16 +53,20 @@ jobs:
         JSON_RETURNED: ${{ steps.get_filtered_alerts.outputs.data }}
       run: |
         echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts'
-        NODES=`echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts.nodes'`
+        NODES=`echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts'`
         echo ::set-env name=alert_nodes::${NODES}
         echo $NODES
         
     # Loop through every node. For each node create an issue if it doesn't already exist
     - name: Create issues
       run: |
-        for row in $alert_nodes; do
-          echo $row
-        done
+        JSON_ARRAY=`echo $alert_nodes| jq '.nodes'`
+        echo $JSON_ARRAY
+   #     for row in $alert_nodes; do
+   #       echo $row
+   #     done
+        
+        jq -r '.response.text' | jq '.recordID'
     
     # Create issues for each alert created in the past 24 hours
     #- name: Create issue from code scanning alerts
