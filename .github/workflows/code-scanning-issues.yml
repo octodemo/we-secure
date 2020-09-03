@@ -47,7 +47,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
     - run: |
-        type(${{ steps.get_filtered_alerts.outputs.data }})
+        type(${ steps.get_filtered_alerts.outputs.data })
         echo ${{ steps.get_filtered_alerts.outputs.data }}
     
     #var=(echo '${{ steps.get_filtered_alerts.outputs.data }}' | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["repository"]')
