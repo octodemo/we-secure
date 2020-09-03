@@ -48,7 +48,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
 
 
-    - name: Print outputs
+    - name: Save code scanning alerts in an environment variable
       env:
         JSON_RETURNED: ${{ steps.get_filtered_alerts.outputs.data }}
       run: |
@@ -56,31 +56,8 @@ jobs:
         NODES=`echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts'`
         echo ::set-env name=alert_nodes::${NODES}
         echo $NODES
-    
-    - name: Get color
-      run: echo 'The selected color is' $alert_nodes
         
-   # MULTILINE=`$JSON_RETURNED | jq '.repository.vulnerabilityAlerts'` 
-   # echo "${MULTILINE}"
-        
-    #- name: Get color
-    #  run: echo 'The selected color is' $ALERT_NODES
-    
-    #var=(echo '${{ steps.get_filtered_alerts.outputs.data }}' | python -c 'import json,sys;obj=json.load(sys.stdin);print obj["repository"]')
-    #echo "$var"
-    
-    # echo ::set-output name=json_var::${{ steps.get_filtered_alerts.outputs.data }}
-    # echo $json_var | jq '.repository.vulnerabilityAlerts'
-
-    #- run: "'latest release: '${{ steps.get_filtered_alerts.outputs.data }}' | jq '.repository'' "
-  
-    # - name: Loop and create issues
-    #  run: |
-    #    jq -r '.children.values[] | [ ]' "${{ steps.get_filtered_alerts.outputs.data }}"
-    
-    #for k in $( jq '.repository.vulnerabilityAlerts.nodes | keys | .[]'  <<< ${{ steps.get_filtered_alerts.outputs.data }} ); do
-    #  echo "$i"
-    #done
+    # Loop through every node. For each node create an issue if it doesn't already exist
         
     
     # Create issues for each alert created in the past 24 hours
