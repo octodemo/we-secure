@@ -16,68 +16,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    
-    - name: Get Repo Security Vulnerability Alerts
-      uses: octokit/graphql-action@v2.x
-      id: get_filtered_alerts
-      with:
-        query: |
-          query release($owner:String!,$repo:String!) {
-              repository(owner:$owner,name:$repo) {
-                vulnerabilityAlerts(first:100) {
-                  nodes {
-                    id
-                    createdAt
-                    securityAdvisory {
-                      description
-                      ghsaId
-                    }
-                    securityVulnerability{
-                      vulnerableVersionRange
-                    }
-                    vulnerableManifestFilename
-                    vulnerableManifestPath
-                    vulnerableRequirements
-                  }
-                }
-              }
-            }
-        owner: ${{ github.repository_owner }}
-        repo: ${{ github.event.repository.name }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
         
-    - name: Test graphql
-      uses: octokit/graphql-action@v2.x
-      id: get_filtered_alerts2
+    # Get all code scanning alerts
+    - name: Get code scanning alerts
+      uses: octokit/request-action@v2.x
+      id: get_repo_alerts
       with:
-        query: |
-          query {
-            organization(login: "get-secure") {
-              packages(first:1, packageType:DOCKER) {
-                 totalCount
-              }
-            }
-          }
-      env:
-        GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
+        route: GET /repos/:repository/code-scanning/alerts
+        repository: ${{ github.repository }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
     - name: Save code scanning alerts in an environment variable
       env:
-        JSON_RETURNED: ${{ steps.get_filtered_alerts.outputs.data }}
+        JSON_RETURNED: ${{ steps.get_repo_alerts.outputs.data }}
       run: |
-        echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts'
-        NODES=`echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts.nodes'`
-        echo ::set-env name=alert_nodes::${NODES}
-        echo $NODES
+        echo $JSON_RETURNED
         
     # Loop through every node. For each node create an issue if it doesn't already exist
-    - name: Create issues
-      run: |
-        echo $alert_nodes | jq -r '.[].id' | while read id ; do
-          echo $id
-        done
+    #- name: Create issues
+    #  run: |
+    #    echo $alert_nodes | jq -r '.[].id' | while read id ; do
+    #      echo $id
+    #    done
         
     # JSON_ARRAY=`echo $alert_nodes| jq '.nodes'`
     # Create issues for each alert created in the past 24 hours
@@ -96,21 +57,51 @@ jobs:
     #    # We must fetch at least the immediate parents so that if this is
     #    # a pull request then we can checkout the head.
     #    fetch-depth: 2
+      
     
-    
-    # Get all code scanning alerts
-    #- name: Get code scanning alerts
-    #  uses: octokit/request-action@v2.x
-    #  id: get_repo_alerts
+    #- name: Get Repo Security Vulnerability Alerts
+    #  uses: octokit/graphql-action@v2.x
+    #  id: get_filtered_alerts
     #  with:
-    #    route: GET /repos/:repository/code-scanning/alerts
-    #    repository: ${{ github.repository }}
-    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      
+    #    query: |
+    #      query release($owner:String!,$repo:String!) {
+    #          repository(owner:$owner,name:$repo) {
+    #            vulnerabilityAlerts(first:100) {
+    #              nodes {
+    #                id
+    #                createdAt
+    #                securityAdvisory {
+    #                  description
+    #                  ghsaId
+    #                }
+    #                securityVulnerability{
+    #                  vulnerableVersionRange
+    #                }
+    #                vulnerableManifestFilename
+    #                vulnerableManifestPath
+    #                vulnerableRequirements
+    #              }
+    #            }
+    #          }
+    #        }
+    #    owner: ${{ github.repository_owner }}
+    #    repo: ${{ github.event.repository.name }}
+    #  env:
+    #    GITHUB_TOKEN: ${{ secrets.ORG_ACCESS_TOKEN }}
 
+    # - name: Save code scanning alerts in an environment variable
+    #  env:
+    #    JSON_RETURNED: ${{ steps.get_filtered_alerts.outputs.data }}
+    #  run: |
+    #    echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts'
+    #    NODES=`echo $JSON_RETURNED | jq '.repository.vulnerabilityAlerts.nodes'`
+    #    echo ::set-env name=alert_nodes::${NODES}
+    #    echo $NODES
         
-
-    
-    
-   
+        
+    # Loop through every node. For each node create an issue if it doesn't already exist
+    #- name: Create issues
+    #  run: |
+    #    echo $alert_nodes | jq -r '.[].id' | while read id ; do
+    #      echo $id
+    #    done
