@@ -32,7 +32,7 @@ jobs:
         JSON_RETURNED: ${{ steps.get_repo_alerts.outputs.data }}
       run: |
         echo $JSON_RETURNED
-        echo $JSON_RETURNED | jq -r '.[].id' | while read id ; do
+        echo $JSON_RETURNED | jq -r '.[]' | while read id ; do
           echo $number
         done
         
