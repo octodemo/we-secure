@@ -33,7 +33,7 @@ jobs:
       run: |
         echo $JSON_RETURNED
         echo $JSON_RETURNED | jq -r '.[].id' | while read id ; do
-          echo $id
+          echo $number
         done
         
     # Loop through every node. For each node create an issue if it doesn't already exist
