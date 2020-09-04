@@ -32,8 +32,9 @@ jobs:
         JSON_RETURNED: ${{ steps.get_repo_alerts.outputs.data }}
       run: |
         echo $JSON_RETURNED
-        echo $JSON_RETURNED | jq -r '.[]' | while read id ; do
-          echo $id["number"]
+        for $JSON_RETURNED | jq -r '.[]' | while read id ; do
+         for field in $id; do
+          echo $field
         done
         
     # Loop through every node. For each node create an issue if it doesn't already exist
