@@ -33,10 +33,11 @@ jobs:
         JSON_RETURNED: ${{ steps.get_repo_alerts.outputs.data }}
       run: |
         echo $JSON_RETURNED | jq -r '.[].number' | while read number ; do
-          echo $number
+          num=`echo $number`
+          echo $num
         done
         
-        echo $number
+        echo $num
         
         
         
