@@ -33,9 +33,12 @@ jobs:
         JSON_RETURNED: ${{ steps.get_repo_alerts.outputs.data }}
       run: |
         echo $JSON_RETURNED
-        echo $JSON_RETURNED | jq -r '.[]' | while read id ; do
-          printf $id "$number"
+        echo $JSON_RETURNED | jq -r '.[]' | while read vulnerability ; do
+          VULNERABILITY_NUMBER=`jq -r '.number' <<< $vulnerability`
         done
+        
+        echo "Hello world"
+        echo $VULNERABILITY_NUMBER
         
     # Loop through every node. For each node create an issue if it doesn't already exist
     #- name: Create issues
