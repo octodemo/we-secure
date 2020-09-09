@@ -34,7 +34,7 @@ jobs:
       run: |
         echo $JSON_RETURNED
         echo $JSON_RETURNED | jq -r '.[]' | while read vulnerability ; do
-          VULNERABILITY_NUMBER=`jq -r '.number' <<< $vulnerability`
+          VULNERABILITY_NUMBER=`jq -r '.html_url' <<< $vulnerability`
         done
         
         echo "Hello world"
