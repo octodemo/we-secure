@@ -36,6 +36,8 @@ jobs:
           echo $number
         done
         
+        echo $number
+        
         
         
     # Loop through every node. For each node create an issue if it doesn't already exist
