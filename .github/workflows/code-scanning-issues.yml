@@ -34,10 +34,11 @@ jobs:
       run: |
         echo $JSON_RETURNED | jq -r '.[]' | while read vulnerability ; do
           VUL=`echo $vulnerability`
+          echo 'hello world'
+          echo $VUL
         done
         
-        echo 'hello world'
-        echo $VUL
+        
         
     # Loop through every node. For each node create an issue if it doesn't already exist
     #- name: Create issues
