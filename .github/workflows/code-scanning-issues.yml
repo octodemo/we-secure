@@ -32,9 +32,8 @@ jobs:
       env:
         JSON_RETURNED: ${{ steps.get_repo_alerts.outputs.data }}
       run: |
-        echo $JSON_RETURNED | jq -r '.[]' | while read vulnerability ; do
-          VUL=`echo $vulnerability`
-          echo $VUL
+        echo $JSON_RETURNED | jq -r '.[].number' | while read number ; do
+          echo $number
         done
         
         
