@@ -6,7 +6,8 @@ name: Create issues from code scanning results
 ####
 
 on:
-  workflow_dispatch:
+  #workflow_dispatch:
+  push:
   schedule:
   - cron: "30 1 * * *"
 
@@ -33,7 +34,7 @@ jobs:
       run: |
         echo $JSON_RETURNED
         echo $JSON_RETURNED | jq -r '.[]' | while read id ; do
-          echo $id | jq '.number'
+          printf $id "$number"
         done
         
     # Loop through every node. For each node create an issue if it doesn't already exist
