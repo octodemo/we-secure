@@ -29,7 +29,8 @@ jobs:
       uses: github/codeql-action/init@v1
       with:
         languages: javascript
-        config-file: get-secure/query-pack/javascript/code-scanning.qls@master
+        config-file: get-secure/query-pack/javascript-codeql-config.yml@master
+        # config-file: get-secure/query-pack/javascript/code-scanning.qls@master
       # Override language selection by uncommenting this and choosing your languages
       # with:
       #   languages: go, javascript, csharp, python, cpp, java
