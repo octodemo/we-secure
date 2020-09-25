@@ -4,8 +4,6 @@ on:
   workflow_dispatch:
   push:
   pull_request:
-  schedule:
-    - cron: '0 6 * * 3'
 
 jobs:
   CodeQL-Build:
@@ -29,6 +27,9 @@ jobs:
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
+      with:
+        languages: javascript
+        config-file: get-secure/query-pack/javascript/code-scanning.qls@master
       # Override language selection by uncommenting this and choosing your languages
       # with:
       #   languages: go, javascript, csharp, python, cpp, java
