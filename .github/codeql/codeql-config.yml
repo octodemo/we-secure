@@ -1,0 +1,27 @@
+name: "CodeQL config for this node-plugin project"
+
+# Disable query default set
+disable-default-queries: true
+
+# Specifies a set of custom queries to run instead. 
+queries:
+  # Query defined in repo get-secure/javascript-query-pack
+  - name: javascript-queries
+    uses: get-secure/query-pack/javascript/code-scanning.qls@master
+  - name: our queries
+    uses: get-secure/query-pack/javascript
+  #- name: innersource query
+  #  uses: get-secure/js-query-pack/codeql-suites/javascript-code-scanning.qls@master
+  #- name: innersource query
+  #  uses: get-secure/javascript-query-pack/snippets/argumentsparam.ql@master
+  #- name: Security and Quality
+  #  uses: security-and-quality
+  #- name: codeql repo
+  #  uses: github/codeql/java/ql/src/codeql-suites/java-code-scanning.qls@v1.24.0
+  #- name: codeql repo
+  #  uses: github/codeql/javascript/ql/src/codeql-suites/javascript-code-scanning.qls@v1.24.0
+  
+# specifies directories to scan, or directories to ignore
+paths-ignore:
+  - '*.md'
+  - '.github/**'
