@@ -29,7 +29,7 @@ jobs:
       uses: github/codeql-action/init@v1
       with:
         languages: javascript
-        config-file: .github/codeql/codeql-config.yml@master
+        config-file: get-secure/node-plugin/.github/codeql/codeql-config.yml@master
         # config-file: get-secure/query-pack/javascript-codeql-config.yml@master
         # config-file: get-secure/query-pack/javascript/code-scanning.qls@master
       # Override language selection by uncommenting this and choosing your languages
