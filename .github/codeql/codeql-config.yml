@@ -8,6 +8,8 @@ queries:
   # Query defined in repo get-secure/javascript-query-pack
   - name: javascript-queries
     uses: get-secure/query-pack/javascript/code-scanning.qls@master
+  - name: Use an external JavaScript QL pack (run queries from an external repo)
+    uses: get-secure/query-pack/javascript/qlpack@main
   #- name: innersource query
   #  uses: get-secure/js-query-pack/codeql-suites/javascript-code-scanning.qls@master
   #- name: innersource query
