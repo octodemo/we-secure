@@ -8,8 +8,6 @@ queries:
   # Query defined in repo get-secure/javascript-query-pack
   - name: javascript-queries
     uses: get-secure/query-pack/javascript/code-scanning.qls@master
-  - name: our queries
-    uses: get-secure/query-pack/javascript/customqueries
   #- name: innersource query
   #  uses: get-secure/js-query-pack/codeql-suites/javascript-code-scanning.qls@master
   #- name: innersource query
