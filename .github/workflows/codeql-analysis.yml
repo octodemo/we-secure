@@ -3,6 +3,7 @@ name: "Code scanning - action"
 on:
   workflow_dispatch:
   push:
+    branches: [test-branch]
   pull_request:
 
 jobs:
