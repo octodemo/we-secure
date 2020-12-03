@@ -26,7 +26,7 @@ paths-ignore:
   - '*.md'
   - '.github/**'
     
-- exclude:
+exclude:
     id:
     - js/missing-rate-limiting
     - js/zipslip
