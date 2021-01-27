@@ -51,3 +51,11 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    
+    
+    ###### If We wanted to hook into another workflow, we'd look to use repo_dispatch
+    #- name: Repository Dispatch
+    #  uses: peter-evans/repository-dispatch@v1
+    #  with:
+    #    token: ${{ secrets.REPO_ACCESS_TOKEN }}
+    #    event-type: my-event
