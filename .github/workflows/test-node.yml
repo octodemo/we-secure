@@ -8,7 +8,7 @@ on:
     branches: [ master ]
 
 jobs:
-  job1:
+  staging-tests:
     runs-on: ubuntu-latest
     environment: staging
 
@@ -18,7 +18,10 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+    # This action checks-out your repository under $GITHUB_WORKSPACE, so your workflow can access it. 
     - uses: actions/checkout@v2
+    
+    # Setup Node Action
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -27,7 +30,9 @@ jobs:
     - run: npm run build --if-present
     - run: npm test
 
-  job2:
+  production-tests:
+    needs: staging-tests
+
     runs-on: ubuntu-latest
     environment: production
 
