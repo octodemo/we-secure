@@ -61,7 +61,7 @@ jobs:
       uses: peter-murray/github-security-report-action@v1
       with:
         token: ${{ secrets.SECURITY_TOKEN }}
-        sarifReportDir: ./samples/java/basic
+        sarifReportDir: .
         outputDir: .
           
     - name: Upload Artifacts
